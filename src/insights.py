@@ -63,29 +63,17 @@ def get_min_salary(path):
 
 
 def matches_salary_range(job, salary):
-    """Checks if a given salary is in the salary range of a given job
-
-    Parameters
-    ----------
-    job : dict
-        The job with `min_salary` and `max_salary` keys
-    salary : int
-        The salary to check if matches with salary range of the job
-
-    Returns
-    -------
-    bool
-        True if the salary is in the salary range of the job, False otherwise
-
-    Raises
-    ------
-    ValueError
-        If `job["min_salary"]` or `job["max_salary"]` doesn't exists
-        If `job["min_salary"]` or `job["max_salary"]` aren't valid integers
-        If `job["min_salary"]` is greather than `job["max_salary"]`
-        If `salary` isn't a valid integer
-    """
-    pass
+    job_keys = job.keys()
+    if "min_salary" not in job_keys or "max_salary" not in job_keys:
+        raise ValueError()
+    elif not isinstance(job["min_salary"], (int, float)) or (
+            not isinstance(job["max_salary"], (int, float))):
+        raise ValueError()
+    elif job["min_salary"] > job["max_salary"]:
+        raise ValueError()
+    elif not isinstance(salary, (int, float)):
+        raise ValueError()
+    return job["min_salary"] <= salary <= job["max_salary"]
 
 
 def filter_by_salary_range(jobs, salary):
@@ -107,6 +95,7 @@ def filter_by_salary_range(jobs, salary):
 
 
 # if __name__ == "__main__":
+#     print(matches_salary_range({"min_salary": 0, "max_salary": 4500}, 3000))
 #     jobs = read("src/jobs.csv")
 #     print(filter_by_job_type(jobs, "PART_TIME"))
 #     print(get_min_salary("tests/mocks/jobs_with_salaries.csv"))
