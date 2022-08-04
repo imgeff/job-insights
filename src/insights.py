@@ -39,14 +39,12 @@ def filter_by_industry(jobs, industry):
 
 
 def get_max_salary(path):
-    list_jobs = read(path)
+    list_jobs = filter_by_valid_salaries(read(path))
     max_salary = 0
     for job in list_jobs:
-        job_salary = job["max_salary"]
-        if job_salary != "" and job_salary != "invalid":
-            salary = int(job["max_salary"])
-            if salary > max_salary:
-                max_salary = salary
+        salary = job["max_salary"]
+        if salary > max_salary:
+            max_salary = salary
     return max_salary
 
 
@@ -77,27 +75,38 @@ def matches_salary_range(job, salary):
 
 
 def filter_by_salary_range(jobs, salary):
-    """Filters a list of jobs by salary range
+    jobs_by_salary = []
+    jobs_with_valid_salaries = filter_by_valid_salaries(jobs)
+    for job in jobs_with_valid_salaries:
+        min_salary = job["min_salary"]
+        max_salary = job["max_salary"]
+        salary_range = {"min_salary": min_salary, "max_salary": max_salary}
+        try:
+            if matches_salary_range(salary_range, salary):
+                jobs_by_salary.append(job)
+        except ValueError:
+            pass
 
-    Parameters
-    ----------
-    jobs : list
-        The jobs to be filtered
-    salary : int
-        The salary to be used as filter
+    return jobs_by_salary
 
-    Returns
-    -------
-    list
-        Jobs whose salary range contains `salary`
-    """
-    return []
+
+def filter_by_valid_salaries(jobs):
+    valid_jobs = []
+    for job in jobs:
+        try:
+            job["min_salary"] = int(job["min_salary"])
+            job["max_salary"] = int(job["max_salary"])
+            valid_jobs.append(job)
+        except ValueError:
+            pass
+    return valid_jobs
 
 
 # if __name__ == "__main__":
-#     print(matches_salary_range({"min_salary": 0, "max_salary": 4500}, 3000))
-#     jobs = read("src/jobs.csv")
-#     print(filter_by_job_type(jobs, "PART_TIME"))
-#     print(get_min_salary("tests/mocks/jobs_with_salaries.csv"))
-#     print(get_max_salary("src/jobs.csv"))
-#     print(get_unique_industries("src/jobs.csv"))
+    # jobs = read("src/jobs.csv")
+    # print(filter_by_salary_range(jobs, 30000))
+    # print(matches_salary_range({"min_salary": 0, "max_salary": 4500}, 3000))
+    # print(filter_by_job_type(jobs, "PART_TIME"))
+    # print(get_min_salary("tests/mocks/jobs_with_salaries.csv"))
+    # print(get_max_salary("src/jobs.csv"))
+    # print(get_unique_industries("src/jobs.csv"))
