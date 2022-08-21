@@ -12,6 +12,7 @@ from .insights import (
 )
 
 from .more_insights import (
+    get_job,
     slice_jobs,
     get_int_from_args,
     build_jobs_urls,
@@ -36,6 +37,13 @@ def index():
 </h2>
         """
     return render_template("index.jinja2", md=md)
+
+
+@bp.route("/job/<index>")
+def get_job_by_id(index):
+    jobs = read("src/jobs.csv")
+    job_selected = get_job(jobs, index)
+    return render_template("job.jinja2", job=job_selected)
 
 
 @bp.route("/jobs")
