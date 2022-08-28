@@ -1,16 +1,37 @@
-# 🚧 README em construção 🚧
+# Job Insights
 
-<!-- Olá, Tryber!
+![](.images/home-page.png)
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+# Sobre o Projeto
+Este projeto é uma plataforma de empregos, construída  através de uma análise de dados com a linguagem Python.
 
-É essencial que você preencha esse documento por conta própria, ok?
+Nesta plataforma é possível filtrar empregos e visualizar detalhes de um emprego. 
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+## Ferramentas utilizadas
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+> Linguagens: `Python`
 
--->
+> Testes: `Pytest`
+
+> Frameworks: `Flask`
+
+> Linters: `Flake8`
+
+## Para rodar o projeto localmente:
+
+1 - **Clone o repositório**
+```bash
+git clone git@github.com:imgeff/job-insights.git
+```
+
+## Executando aplicação
+### Requisitos
+- [Docker](https://docs.docker.com/compose/install/compose-desktop/)
+
+Para rodar a aplicação:
+
+ - Abra um terminal na raiz do projeto
+ - Execute o comando `docker-compose up`
+ - Abra o navegador no endereço -> http://172.25.0.2:5000/
+
+
